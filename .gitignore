@@ -9,3 +9,4 @@ include/stream/*
 !bag/raw/.gitkeep
 !bag/compressed/.gitkeep
 !bag/undistorted/.gitkeep
+insta360_binaries/*
