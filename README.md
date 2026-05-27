@@ -200,3 +200,5 @@ ros2 bag play rosbag2_2026_05_21-14_53_44 --rate 0.1
 From here you have a bag file with uncompressed images. We will extract these into `.png` files and save in a folder on the disk by inputting the relevant folders (source and dest) into `parse_insta360_bag.py` and running it.
 
 From here you can take selected images from the folder and put them into a new folder and calibrate with `calibrate_camera_chess.py`.
+
+For detecting april tags `calibrate_camera.py` does this but doesn't do the calibration.
