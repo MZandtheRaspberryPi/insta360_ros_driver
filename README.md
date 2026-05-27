@@ -131,3 +131,72 @@ ros2 bag record /dual_fisheye/image /imu/data_raw
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=ai4ce/insta360_ros_driver&type=Date)](https://star-history.com/#ai4ce/insta360_ros_driver&Date)
+
+
+## Usage for Custom Projects
+
+To use the insta360, download the required binaries by using a script:
+
+```
+cd src/hardware/insta360_ros_driver
+bash move_binaries.sh
+```
+Make sure the camera has a MicroSD Card inserted! This is needed to use the API.
+
+Before continuing, make sure the camera is set to dual-lens mode
+
+Additionally, ensure the camera's USB mode is set to Android:
+On the camera, swipe down the screen to the main menu
+Go to Settings -> General
+Set USB Mode to Android (not Webcam or other modes)
+This is required for the ROS driver to properly detect and communicate with the camera (see Issue #4)
+
+The Insta360 requires sudo privilege to be accessed via USB. To compensate for this, a udev configuration can be automatically created that will only request for sudo once. The camera can thus be setup initially via:
+
+cd ~/ros2_ws/src/insta360_ros_driver
+./setup.sh
+
+Connect the camera to the computer and ensure you can see the camera and permissions are ok
+```
+ls -l /dev/insta
+```
+
+
+and add the following volume mounts and flags to the docker run command.
+```
+-v $REPO_PATH/src/hardware/insta360_ros_driver:/home/$DEV_USERNAME/ros_ws/src/hardware/insta360_ros_driver \
+-v /dev:/dev \
+--privileged 
+```
+
+and inside of the image install needed dependencies:
+```
+sudo apt-get update && sudo apt-get install -y ros-humble-imu-tools
+```
+
+```
+export MAKEFLAGS=-j2 && colcon build --symlink-install --parallel-workers 2 --cmake-args -DCMAKE_BUILD_TYPE=Release
+ros2 launch insta360_ros_driver bringup.launch.xml
+```
+
+```
+ros2 bag record /dual_fisheye/image/compressed /imu/data_raw
+```
+
+Converting bags. If bag file has just the compressed image and raw IMU data, replay the bag while decoding the images and re-recording them....
+
+```
+ros2 run insta360_ros_driver decoder --ros-args -p compressed_topic:=/dual_fisheye/image/compressed -p uncompressed_topic:=/dual_fisheye/image -p skip_frame:=0 -p i_frame_only:=false
+```
+
+```
+ros2 bag record /dual_fisheye/image
+```
+
+```
+ros2 bag play rosbag2_2026_05_21-14_53_44 --rate 0.1
+```
+
+From here you have a bag file with uncompressed images. We will extract these into `.png` files and save in a folder on the disk by inputting the relevant folders (source and dest) into `parse_insta360_bag.py` and running it.
+
+From here you can take selected images from the folder and put them into a new folder and calibrate with `calibrate_camera_chess.py`.
