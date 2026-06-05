@@ -192,6 +192,7 @@ CROSS_SIZE = 30
 DO_PLOTS = False
 DO_PLOTS_UNDIST = False
 
+# SELECTED_CAMERAS = [0, 1]
 SELECTED_CAMERAS = [0, 1]
 
 def transform_world_to_camera(K, R, t, world_coords):
