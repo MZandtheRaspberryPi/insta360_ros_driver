@@ -21,8 +21,8 @@ from cv_bridge import CvBridge
 
 from rclpy.parameter import Parameter
 
-BAG_FILE = "/home/developer/ros_ws/src/hardware/insta360_ros_driver/cali-chess-4-uncompr-rosbag2_2026_05_26-15_19_39"
-OUT_DIR = "/home/developer/ros_ws/src/hardware/insta360_ros_driver/cali_imgs_chess_4"
+BAG_FILE = "/home/developer/ros_ws/src/hardware/insta360_ros_driver/first-spot-imgs-uncrompressed-rosbag2_2026_06_09-14_51_21"
+OUT_DIR = "/home/developer/ros_ws/src/hardware/insta360_ros_driver/first-spot-imgs-rgb"
 
 class SimpleBagReader(Node):
 
