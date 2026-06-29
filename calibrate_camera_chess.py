@@ -166,6 +166,119 @@ distortion coefficients:  [ 0.07040753 -0.0148543   0.00355922 -0.00154401]
 
 """
 
+
+"""
+cali june 26 on cali9
+
+cam0:
+imgs:
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0000857_142.6593039035797.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0000929_154.72589492797852.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0000968_161.20422887802124.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0001022_170.2128026485443.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0001042_173.53025913238525.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0001096_182.5503125190735.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0001151_191.6538107395172.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0001196_199.42094779014587.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0001216_202.49955487251282.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0001277_212.8973696231842.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0001301_216.7310266494751.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0001315_219.04678177833557.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0001337_222.78635168075562.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0001409_234.71597456932068.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-9-selected-cam-0/img_raw_0001415_235.74097895622253.png
+done calculating camera calibration
+Found 15 valid images for calibration
+
+RMS: 0.6525323168594677
+camera matrix:
+ [[518.62533526   0.         952.54933439]
+ [  0.         520.07344497 963.67529999]
+ [  0.           0.           1.        ]]
+distortion coefficients:  [ 0.0927486  -0.04045851  0.01693481 -0.00386533]
+
+
+
+camera1: 
+RMS: 0.6984141778284092
+camera matrix:
+ [[524.08354498   0.         955.54902783]
+ [  0.         525.27323207 963.4945584 ]
+ [  0.           0.           1.        ]]
+distortion coefficients:  [ 0.08178777 -0.01882028  0.00116621 -0.00111479]
+
+
+
+with new firmware, jun 26
+
+camera0:
+imgs:
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0000816_27.188166618347168.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0000841_28.010162591934204.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0000889_29.616190195083618.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0000947_31.54619312286377.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0000959_31.96018958091736.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0001054_35.144211292266846.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0001065_35.49222373962402.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0001143_38.08822989463806.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0001175_39.160234212875366.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0001219_40.64425182342529.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0001260_42.0422523021698.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0001277_42.58826208114624.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0001298_43.25825595855713.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0001308_43.638261795043945.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0001318_43.93427872657776.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0001365_45.48627209663391.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0001402_46.73428273200989.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected/img_raw_0001447_48.23029351234436.png
+(3, 3)
+(4, 1)
+1920 1920
+18
+(1, 1, 3)
+done calculating camera calibration
+Found 18 valid images for calibration
+
+RMS: 0.660166640915727
+camera matrix:
+ [[523.39510884   0.         959.49394175]
+ [  0.         524.85636638 964.2452869 ]
+ [  0.           0.           1.        ]]
+distortion coefficients:  [ 0.087575   -0.03389327  0.01168468 -0.00256208]
+
+camera1:
+imgs:
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-1-selected/img_raw_0000008_0.22800922393798828.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-1-selected/img_raw_0000060_2.0020172595977783.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-1-selected/img_raw_0000079_2.59602689743042.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-1-selected/img_raw_0000143_4.726037979125977.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-1-selected/img_raw_0000161_5.314035892486572.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-1-selected/img_raw_0000240_7.95805287361145.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-1-selected/img_raw_0000291_9.664052963256836.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-1-selected/img_raw_0000319_10.596052408218384.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-1-selected/img_raw_0000332_11.070089101791382.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-1-selected/img_raw_0000404_13.452085256576538.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-1-selected/img_raw_0000425_14.132076025009155.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-1-selected/img_raw_0000496_16.502095222473145.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-1-selected/img_raw_0000576_19.172114849090576.png
+/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-1-selected/img_raw_0000644_21.46013832092285.png
+(3, 3)
+(4, 1)
+1920 1920
+14
+(1, 1, 3)
+done calculating camera calibration
+Found 14 valid images for calibration
+
+RMS: 0.43007790254895395
+camera matrix:
+ [[520.94868886   0.         953.17778948]
+ [  0.         521.81516964 968.83095652]
+ [  0.           0.           1.        ]]
+distortion coefficients:  [ 0.0821304  -0.02827705  0.00855254 -0.00161417]
+
+"""
+
 import time
 import os
 
@@ -173,10 +286,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import cv2
 
-IMG_DIR = "/home/developer/ros_ws/src/hardware/insta360_ros_driver/cali_imgs_chess_4_selected"
+IMG_DIR = "/home/developer/ros_ws/src/hardware/insta360_ros_driver/rgb-cali-10-cam-0-selected"
 # IMG_DIR = "/home/developer/ros_ws/src/hardware/insta360_ros_driver/cali_imgs_3"
 
-CHESSBOARD_SIZE = 0.019 # meters
+CHESSBOARD_SIZE = 0.023 # meters
 N_CORNERS_X = 6
 N_CORNERS_Y = 9
 CHESSBOARD_STARTING_POINT = np.array([0.0, 0.0])
@@ -190,10 +303,10 @@ CHESS_WORLD = np.hstack((reshaped_xv, reshaped_yv, np.zeros((reshaped_xv.shape[0
 
 CROSS_SIZE = 30
 DO_PLOTS = False
-DO_PLOTS_UNDIST = False
+DO_PLOTS_UNDIST = True
 
 # SELECTED_CAMERAS = [0, 1]
-SELECTED_CAMERAS = [0, 1]
+SELECTED_CAMERAS = [0]
 
 def transform_world_to_camera(K, R, t, world_coords):
     """
@@ -280,7 +393,7 @@ for img_name in all_imgs:
         img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
         # get checkerboard
-        ret, corner_coordinates = cv2.findChessboardCorners(img_gray, (N_CORNERS_X, N_CORNERS_Y))
+        ret, corner_coordinates = cv2.findChessboardCorners(img_gray, (N_CORNERS_X, N_CORNERS_Y), cv2.CALIB_CB_ADAPTIVE_THRESH)
 
         if not ret:
             print(f"couldn't find chessboard camera {i}")
@@ -325,6 +438,11 @@ for i in SELECTED_CAMERAS:
     
     N_OK = len(my_uv_coords)
     K = np.zeros((3, 3))
+    K[0,0] = 500
+    K[1,1] = 500
+    K[0, 2] = 1920/2
+    K[1, 2] = 1920/2  
+
     D = np.zeros((4, 1))
     rvecs = [np.zeros((1, 1, 3), dtype=np.float64) for i in range(N_OK)]
     tvecs = [np.zeros((1, 1, 3), dtype=np.float64) for i in range(N_OK)]
@@ -375,15 +493,8 @@ for i in SELECTED_CAMERAS:
 
         img_dim = (img.shape[1], img.shape[0])
 
-        balance = 0.4
-        new_k = K.copy()
-        new_k[0,0]=new_k[0,0] * balance
-        new_k[1,1]=new_k[1,1] * balance
-        dim2 = (int(balance * img_dim[0]), int(balance*img_dim[1]))
-
-        map1, map2 = cv2.fisheye.initUndistortRectifyMap(K, D, np.eye(3), new_k, img_dim, cv2.CV_16SC2)
+        map1, map2 = cv2.fisheye.initUndistortRectifyMap(K, D, np.eye(3), K, img_dim, cv2.CV_16SC2)
         undistorted_img = cv2.remap(img, map1, map2, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
-
         if DO_PLOTS_UNDIST:
         # undistorted_image = undistorted_image[y:y+h, x:x+w]
             axes[1].imshow(undistorted_img[:, :, [2, 1, 0]])
