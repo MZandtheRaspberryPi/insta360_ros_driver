@@ -321,8 +321,9 @@ public:
         skip_frame_ = this->get_parameter("skip_frame").as_int();
         i_frame_only_ = this->get_parameter("i_frame_only").as_bool();
 
+        auto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort();
         subscription_ = this->create_subscription<sensor_msgs::msg::CompressedImage>(
-            subscribe_topic, 10,
+            subscribe_topic, qos,
             std::bind(&H264DecoderNode::compressed_image_callback, this, std::placeholders::_1));
 
         publisher_ = this->create_publisher<sensor_msgs::msg::Image>(publish_topic, 10);
