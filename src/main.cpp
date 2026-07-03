@@ -97,6 +97,7 @@ public:
 
     ~CameraWrapper() {
         if (cam) {
+            cam->StopLiveStreaming();
             cam->Close();
         }
     }
