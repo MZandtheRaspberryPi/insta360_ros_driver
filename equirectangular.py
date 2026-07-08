@@ -90,17 +90,40 @@ def main():
         # convert equirectangular coordinates to spherical coordinates
         # x 0 in equirect coords corresponds to -pi azimuth, or lon
 
-        azimuth = (torch.round(grid_x / float(equirect_width), decimals=5)) * 2 * math.pi - math.pi
-        elevation = (torch.round(grid_y / float(equirect_height), decimals=5)) * math.pi - math.pi/2
+        azimuth_old = (torch.round(grid_x / float(equirect_width), decimals=5)) * 2 * math.pi - math.pi
+        elevation_old = (torch.round(grid_y / float(equirect_height), decimals=5)) * math.pi - math.pi/2
 
         # azimuth = 2 * math.pi * (grid_x - 0.5)
         # elevation = math.pi * (grid_y - 0.5)
 
-        # now to world coordinates
+        u, v = torch.meshgrid(torch.linspace(0,1,equirect_width, device=DEVICE, dtype=torch.float32), torch.linspace(0,1,equirect_height, device=DEVICE, dtype=torch.float32))
+        # Map the above equirect coordinates to spherical coordinates
+        azimuth = 2 * math.pi * (u.to(torch.float32) - 0.5)
+        elevation = math.pi * (v.to(torch.float32) - 0.5)
 
-        x = 1.0 * torch.cos(elevation) * torch.sin(azimuth)
-        y = 1.0 * torch.sin(elevation)
-        z = 1.0 * torch.cos(elevation) * torch.cos(azimuth)
+        # print(azimuth[:5, :5])
+        # print(elevation[:5, :5])
+
+        spherical_coords = torch.cat((torch.ones_like(azimuth).unsqueeze(2), azimuth.unsqueeze(2), elevation.unsqueeze(2)), dim=2)
+
+        rho = spherical_coords[:, :, 0]
+        theta = spherical_coords[:, :, 1]
+        phi = spherical_coords[:, :, 2]
+
+        x = rho * torch.cos(phi) * torch.sin(theta)
+        y = rho * torch.sin(phi)
+        z = rho * torch.cos(phi) * torch.cos(theta)
+
+
+        # now to cartesian world coordinates
+
+        x = 1.0 * torch.cos(elevation_old) * torch.sin(azimuth_old)
+        y = 1.0 * torch.sin(elevation_old)
+        z = 1.0 * torch.cos(elevation_old) * torch.cos(azimuth_old)
+
+        # print(f"x old: {x_old[:5, :5]}")
+        # print(f"x: {x[:5, :5]}")
+        # print(f"x shape: {x.shape}")
 
         front_mask = z >= 0.0
         front_x = x[front_mask]
@@ -108,7 +131,24 @@ def main():
         front_z = z[front_mask]
 
         print(f"front_x shape: {front_x.shape}")
+        print(f"front_z min: {front_z.min()} max: {front_z.max()} avg: {front_z.mean()}")
 
+        Rt = torch.tensor([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0]], dtype=torch.float32, device=DEVICE)
+
+        xyz = torch.cat((front_x.unsqueeze(0), front_y.unsqueeze(0), front_z.unsqueeze(0), torch.ones_like(front_z).unsqueeze(0)), dim=0)
+        # uv = K @ (Rt @ xyz)
+        # uv = torch.transpose(uv, 0, 1)
+        # # uv = (xyz @ Rt) @ torch.transpose(K, 0, 1)
+        # print(uv.shape)
+        # print(uv[:5, 0])
+        # print(uv[:5, 1])
+        # print(uv[:5, 2])
+        # uv[:, 0] /= uv[:, 2] 
+        # uv[:, 1] /= uv[:, 2] 
+        # uv[:, 2] /= uv[:, 2] 
+        # print(uv[:5, 0])
+        # print(uv[:5, 1])
+        # print(uv[:5, 2])
 
         r = torch.sqrt(front_x**2 + front_y**2)
         r[r<1e-6] = 1e-6
@@ -121,6 +161,9 @@ def main():
 
         front_map_x = front_map_x.reshape(IMG_SHAPE[0], IMG_SHAPE[1])
         front_map_y = front_map_y.reshape(IMG_SHAPE[0], IMG_SHAPE[1])
+
+        # front_map_x = uv[:, 0].reshape(IMG_SHAPE[0], IMG_SHAPE[1])
+        # front_map_y = uv[:, 1].reshape(IMG_SHAPE[0], IMG_SHAPE[1])
 
         # --- Replicate cv2.BORDER_WRAP ---
         # cv2 wraps x around width and y around height
@@ -148,7 +191,7 @@ def main():
         print(f"front shape: {front.shape}")
 
         equirec = torch.zeros(equirect_height, equirect_width, 3, device=DEVICE, dtype=torch.uint8)
-        equirec[:, :, :][front_mask] = front
+        equirec[front_mask] = front
 
         # equirec_arr = np.transpose(equirec_arr, (1, 2, 0))
 
@@ -201,7 +244,7 @@ def main():
         back = back[0].permute(1, 2, 0).reshape(-1, 3).to(dtype=torch.uint8)
         print(f"back shape: {back.shape}")
 
-        equirec[:, :, :][back_mask] = back
+        equirec[back_mask] = back
 
 
         equirec_arr = equirec.cpu().detach().numpy()
