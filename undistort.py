@@ -126,19 +126,19 @@ for i in SELECTED_CAMERAS:
         # undistorted_img = cv2.remap(img, map1, map2, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
 
         # auto crop
-        # map1, map2 = cv2.fisheye.initUndistortRectifyMap(scaled_K, D, np.eye(3), scaled_K, img_dim, cv2.CV_16SC2)
-        # undistorted_img = cv2.remap(img, map1, map2, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+        map1, map2 = cv2.fisheye.initUndistortRectifyMap(scaled_K, D, np.eye(3), scaled_K, img_dim, cv2.CV_16SC2)
+        undistorted_img = cv2.remap(img, map1, map2, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
 
         # This is how scaled_K, dim2 and balance are used to determine the final K used to un-distort image. OpenCV document failed to make this clear!
-        dim2 = img_dim
-        dim3 = dim2
-        balance = 0.0
-        new_K = cv2.fisheye.estimateNewCameraMatrixForUndistortRectify(scaled_K, D, dim2, R=np.eye(3), balance=balance, fov_scale=1.5)
-        print(f"K: {K}")
-        print(f"scaled_K: {scaled_K}")
-        print(f"new_K: {new_K}")
-        map1, map2 = cv2.fisheye.initUndistortRectifyMap(scaled_K, D, np.eye(3), new_K, dim3, cv2.CV_16SC2)
-        undistorted_img = cv2.remap(img, map1, map2, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+        # dim2 = img_dim
+        # dim3 = dim2
+        # balance = 0.0
+        # new_K = cv2.fisheye.estimateNewCameraMatrixForUndistortRectify(scaled_K, D, dim2, R=np.eye(3), balance=balance, fov_scale=1.5)
+        # print(f"K: {K}")
+        # print(f"scaled_K: {scaled_K}")
+        # print(f"new_K: {new_K}")
+        # map1, map2 = cv2.fisheye.initUndistortRectifyMap(scaled_K, D, np.eye(3), new_K, dim3, cv2.CV_16SC2)
+        # undistorted_img = cv2.remap(img, map1, map2, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
 
 # estimateNewCameraMatrixForUndistortRectify(...)
 #     estimateNewCameraMatrixForUndistortRectify(K, D, image_size, R[, P[, balance[, new_size[, fov_scale]]]]) -> P
