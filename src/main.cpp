@@ -12,11 +12,13 @@
 #include "rclcpp/qos.hpp"
 #include "sensor_msgs/msg/compressed_image.hpp"
 #include "sensor_msgs/msg/imu.hpp"
+#include "std_msgs/msg/u_int8_multi_array.hpp"
 
 class TestStreamDelegate : public ins_camera::StreamDelegate {
 private:
     std::shared_ptr<rclcpp::Node> node_;
     rclcpp::Publisher<sensor_msgs::msg::CompressedImage>::SharedPtr compressed_pub_;
+    rclcpp::Publisher<std_msgs::msg::UInt8MultiArray>::SharedPtr audio_pub_;
     rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_pub_;
 
 public:
@@ -24,6 +26,11 @@ public:
         // Publisher for the compressed H.264 video stream
         compressed_pub_ = node_->create_publisher<sensor_msgs::msg::CompressedImage>(
             "/dual_fisheye/image/compressed", 
+            rclcpp::QoS(60)
+        );
+        // Publisher for the aac audio data
+        audio_pub_ = node_->create_publisher<std_msgs::msg::UInt8MultiArray>(
+            "/dual_fisheye/audio_aac", 
             rclcpp::QoS(60)
         );
 
@@ -34,7 +41,23 @@ public:
 
     virtual ~TestStreamDelegate() {}
 
-    void OnAudioData(const uint8_t* data, size_t size, int64_t timestamp) override {}
+    void OnAudioData(const uint8_t* data, size_t size, int64_t timestamp) override {
+
+        auto msg = std::make_unique<std_msgs::msg::UInt8MultiArray>();
+        // we will prepend the 8 byte timestamp to the audio data
+        msg->data.resize(8 + size);
+
+        // we will write timestamp first, big endian
+        for (int8_t i = 7; i >= 0; i--)
+        {
+            uint8_t byte = (timestamp>>(8*i)) & 0xff;
+            std::memcpy(msg->data.data() + 7 - i, &byte, 1);
+        }
+
+        // Then the audio payload right after it
+        std::memcpy(msg->data.data() + 8, data, size);
+        audio_pub_->publish(std::move(msg));
+    }
 
     void OnVideoData(const uint8_t* data, size_t size, int64_t timestamp, uint8_t streamType, int stream_index) override {
         // We only care about the main video stream (index 0)
@@ -47,7 +70,9 @@ public:
 
             // Set the format to H.264
             // The subscriber will need to know this to select the correct decoder.
-            msg->format = "h264";
+            // we put the timestamp into the format string as well...
+            std::string format_str = std::string("h264:") + std::to_string(timestamp);
+            msg->format.assign(format_str.c_str(), format_str.c_str() + format_str.size());
 
             // Copy the compressed video data directly into the message
             msg->data.assign(data, data + size);
@@ -136,7 +161,7 @@ public:
         //RES_1920_960P30  
         param.lrv_video_resulution = ins_camera::VideoResolution::RES_1440_720P30;
         param.video_bitrate = 1024 * 1024 / 2;
-        param.enable_audio = false;
+        param.enable_audio = true;
         param.using_lrv = false;
 
         if (!cam->StartLiveStreaming(param)) {
